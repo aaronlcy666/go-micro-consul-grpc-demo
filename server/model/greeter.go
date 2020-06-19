@@ -4,14 +4,15 @@ import (
 	"context"
 	"fmt"
 	greeter "grpctest/server/proto"
-
 )
 
-type Say struct {
+//声明一个结构体
 
+type Say struct {
 }
 
-func (s *Say)Hello(ctx context.Context, req *greeter.SayParam, rsp *greeter.SayResponse) (error) {
+//实现我们再proto中声明的方法自动生成的接口 三个参数为固定顺序 context.Context  自动生成的入参 自动生成的回参  返回 error
+func (s *Say) Hello(ctx context.Context, req *greeter.SayParam, rsp *greeter.SayResponse) error {
 	fmt.Println("received", req.Msg)
 	rsp.Header = make(map[string]*greeter.Pair)
 	rsp.Header["name"] = &greeter.Pair{Key: 1, Values: "abc"}
